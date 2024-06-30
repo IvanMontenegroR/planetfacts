@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+
+body, h2, h3, h4, h5, p, button{
+    margin: 0; /* Reset default margin */
+}
+
+html {
+    font-size: 16px; /* Sets the base font size */
+}
+
+body {
+    background: #070724;
+    background-image: url('/assets/background-stars.svg');
+}
+
+header {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    border-bottom: 1px solid #979797;
+    
+}
+
+.logo{
+    margin: auto 0 auto 2rem;
+}
+
+#page-title{
+    font-family: Antonio;
+    font-size: 2rem;
+    font-weight: 500;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+#header-menu {
+    margin-top: auto;
+    margin-bottom: auto;
+    justify-content: end;
+}
+
+#header-menu-elements > li{
+    display: inline;
+    margin-right: 2rem;
+    font-family: League Spartan;
+    font-size: 0.785rem;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    list-style-type: none;
+}
+
+.planet-container {
+    display: grid;
+    grid-template-columns: 0.85fr 22rem;
+    padding: 5rem 10.5rem 3.5rem 16rem;
+    
+}
+
+#planet-image {
+   max-width: 28.125rem;
+   max-height: 28.125rem;
+   overflow: hidden;
+   margin: auto;
+}
+
+#planet-image img {
+    width: 100%;
+    height: auto;
+}
+
+#planet-info {
+    margin: auto;
+    max-width: 9rem;
+
+}
+
+#planet-name {
+    font-family: Antonio;
+    font-size: 3rem;
+    font-weight: 500;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0 0 1.5rem 0;
+}
+
+
+#planet-description {
+    font-family: League Spartan;
+    font-size: 1rem;
+    color: #fff;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.5rem;
+}
+
+#planet-source {
+    font-family: League Spartan;
+    font-size: 1rem;
+    color: #fff;
+    line-height: 1.5rem;
+
+}
+
+#planet-buttons {
+    display: grid;
+    gap: 1rem;
+    margin: 2.5rem 0 0 0;
+    
+}
+
+#planet-buttons button {
+    height: 3rem; /* Set desired height */
+    background: none;
+    border: 1px solid #D8D8D8;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    font-family: League Spartan;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.16rem;
+    line-height: 1.5rem;
+    padding: 0.75rem 0 0.688rem 0;
+}
+
+.button-number {
+    letter-spacing: 0.16rem;
+    line-height: 1.5rem;
+    padding: 0 1.75rem;
+    opacity: 0.5;
+}
