@@ -48,12 +48,13 @@ header {
     color: #fff;
     text-transform: uppercase;
     list-style-type: none;
+    cursor: pointer;
 }
 
 .planet-container {
     display: grid;
     grid-template-columns: 0.85fr 22rem;
-    padding: 5rem 10.5rem 3.5rem 16rem;
+    padding: 4rem 10.5rem 3.5rem 16rem;
     
 }
 
@@ -122,6 +123,7 @@ header {
     letter-spacing: 0.16rem;
     line-height: 1.5rem;
     padding: 0.75rem 0 0.688rem 0;
+    cursor: pointer;
 }
 
 .button-number {
