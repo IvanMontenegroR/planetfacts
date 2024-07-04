@@ -39,7 +39,7 @@ header {
     justify-content: end;
 }
 
-#header-menu-elements > li{
+.menu-item {
     display: inline;
     margin-right: 2rem;
     font-family: League Spartan;
@@ -51,9 +51,14 @@ header {
     cursor: pointer;
 }
 
+.menu-clicked {
+    background-color: #6D2ED5;
+    transition: ease-in 0.1s;
+}
+
 .planet-container {
     display: grid;
-    grid-template-columns: 0.85fr 22rem;
+    grid-template-columns: 0.85fr 19.5rem;
     padding: 4rem 10.5rem 3.5rem 16rem;
     
 }
@@ -124,6 +129,12 @@ header {
     line-height: 1.5rem;
     padding: 0.75rem 0 0.688rem 0;
     cursor: pointer;
+}
+
+#planet-buttons button:hover{
+    background-color: #6D2ED5;
+    border-color: #6D2ED5;
+    transition: ease-in 0.15s;
 }
 
 .button-number {

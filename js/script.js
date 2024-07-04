@@ -1,3 +1,8 @@
+const imageSection = document.getElementById('planet-image1');
+const nameSectionText = document.getElementById('planet-name-text');
+const descSectionText = document.getElementById('planet-desc-text');
+const sourceSectionText = document.getElementById('planet-source-text');
+
 let defaultPlanetFlag = 0;
 
 fetch('data/data.json')
@@ -10,7 +15,7 @@ fetch('data/data.json')
         defaultPlanetFlag = 1;
     }
 
-    createMenu(data);
+    planetSelect(data);
 });
 
 function preloadImages(data) {
@@ -20,15 +25,11 @@ function preloadImages(data) {
     });
 }
 
-function createMenu(data){
+function planetSelect(data){
     const menuList = document.getElementById('header-menu-elements');
     data.forEach(planet => {
-        const imageSection = document.getElementById('planet-image1');
-        const nameSectionText = document.getElementById('planet-name-text');
-        const descSectionText = document.getElementById('planet-desc-text');
-        const sourceSectionText = document.getElementById('planet-source-text');
-        const newMenuItem = document.createElement('li');
         
+        const newMenuItem = document.createElement('li');
         newMenuItem.classList.add('menu-item');
         newMenuItem.setAttribute('data-planet-name', planet.name);
         newMenuItem.textContent = planet.name;
@@ -37,27 +38,58 @@ function createMenu(data){
             imageSection.src = planet.images.planet;
             nameSectionText.textContent = planet.name;
             descSectionText.textContent = planet.overview.content;
-            sourceSectionText.textContent = `Source: ${planet.overview.source}`;
-            
-        });
+            sourceSectionText.textContent = planet.overview.source;
 
+            currentPlanet = planet.name;
+            console.log(currentPlanet);
+            mainButtons(planet);
+            
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('menu-clicked');
+            })
+            
+            this.classList.add('menu-clicked');
+
+        });
         menuList.appendChild(newMenuItem);
     });
 }
 
+
+function mainButtons(planet){
+
+    const overviewButton = document.getElementById('overview-button');
+    const structureButton= document.getElementById('structure-button');
+    const geologyButton = document.getElementById('geology-button');
+
+    overviewButton.addEventListener('click', function(){
+        descSectionText.textContent = planet.overview.content;
+        sourceSectionText.textContent = planet.overview.source;
+        imageSection.src = planet.images.planet;
+    });
+    structureButton.addEventListener('click', function(){
+        descSectionText.textContent = planet.structure.content;
+        sourceSectionText.textContent = planet.structure.source;
+        imageSection.src = planet.images.internal;
+    });
+
+    geologyButton.addEventListener('click', function(){
+        descSectionText.textContent = planet.geology.content;
+        sourceSectionText.textContent = planet.geology.source;
+        imageSection.src = planet.images.geology;
+    });
+    }
+
+
+
 function planetDefault(data, planet){
-    const imageSection = document.getElementById('planet-image1');
-    const nameSectionText = document.getElementById('planet-name-text');
-    const descSectionText = document.getElementById('planet-desc-text');
-    const sourceSectionText = document.getElementById('planet-source-text');
     const specificPlanet =  data.find(item => item.name === planet);
     if (specificPlanet) { // Check if a planet was found
-        imageSection.src = specificPlanet.images.planet;
-        
+        imageSection.src = specificPlanet.images.planet;        
         nameSectionText.textContent = specificPlanet.name;
-        
         descSectionText.textContent = specificPlanet.overview.content;
-        
-        sourceSectionText.textContent = `Source: ${specificPlanet.overview.source}`;
+        sourceSectionText.textContent = specificPlanet.overview.source;
     }
 }
+
+
