@@ -17,7 +17,7 @@ body {
 header {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    border-bottom: 1px solid #979797;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     
 }
 
@@ -117,7 +117,7 @@ header {
 #planet-buttons button {
     height: 3rem; /* Set desired height */
     background: none;
-    border: 1px solid #D8D8D8;
+    border: 1px solid rgba(255, 255, 255, 0.25);
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
     font-family: League Spartan;
     font-size: 1rem;

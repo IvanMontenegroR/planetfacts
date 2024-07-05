@@ -9,12 +9,6 @@ fetch('data/data.json')
 .then(response => response.json())
 .then(data => {
     preloadImages(data);
-    
-    if(defaultPlanetFlag == 0){
-        planetDefault(data, "Earth");
-        defaultPlanetFlag = 1;
-    }
-
     planetSelect(data);
 });
 
@@ -27,37 +21,43 @@ function preloadImages(data) {
 
 function planetSelect(data){
     const menuList = document.getElementById('header-menu-elements');
+    const defaultPlanet = planetDefault(data);
+
+    if(defaultPlanetFlag == 0){
+        mainButtons(defaultPlanet);
+    }
+    
     data.forEach(planet => {
-        
         const newMenuItem = document.createElement('li');
         newMenuItem.classList.add('menu-item');
         newMenuItem.setAttribute('data-planet-name', planet.name);
         newMenuItem.textContent = planet.name;
 
         newMenuItem.addEventListener('click', function() {
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('menu-clicked');
+            })
             imageSection.src = planet.images.planet;
             nameSectionText.textContent = planet.name;
             descSectionText.textContent = planet.overview.content;
             sourceSectionText.textContent = planet.overview.source;
-
-            currentPlanet = planet.name;
-            console.log(currentPlanet);
+            
             mainButtons(planet);
-            
-            document.querySelectorAll('.menu-item').forEach(item => {
-                item.classList.remove('menu-clicked');
-            })
-            
             this.classList.add('menu-clicked');
-
+            console.log(planet);
         });
         menuList.appendChild(newMenuItem);
     });
+        // After all menu items have been created, find and mark the default planet menu item
+        const defaultPlanetMenuItem = Array.from(document.querySelectorAll('.menu-item')).find(item => item.getAttribute('data-planet-name') === defaultPlanet.name);
+        if (defaultPlanetMenuItem) {
+            defaultPlanetMenuItem.classList.add('menu-clicked');
+        }
 }
 
 
 function mainButtons(planet){
-
+    if (!planet) return;
     const overviewButton = document.getElementById('overview-button');
     const structureButton= document.getElementById('structure-button');
     const geologyButton = document.getElementById('geology-button');
@@ -82,14 +82,20 @@ function mainButtons(planet){
 
 
 
-function planetDefault(data, planet){
-    const specificPlanet =  data.find(item => item.name === planet);
+function planetDefault(data){
+    const specificPlanet =  data.find(item => item.name === "Earth");
+    
     if (specificPlanet) { // Check if a planet was found
         imageSection.src = specificPlanet.images.planet;        
         nameSectionText.textContent = specificPlanet.name;
         descSectionText.textContent = specificPlanet.overview.content;
         sourceSectionText.textContent = specificPlanet.overview.source;
+        planet = specificPlanet;
     }
+
+    const defaultPlanet = data.find(planet => planet.name === "Earth");
+    
+    return defaultPlanet;
 }
 
 
