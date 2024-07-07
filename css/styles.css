@@ -50,6 +50,10 @@ header {
     list-style-type: none;
     cursor: pointer;
 }
+.menu-item:hover {
+    border-bottom: solid 2px #6D2ED5;
+    transition: ease-in 0.25s;
+}
 
 .menu-clicked {
     background-color: #6D2ED5;
@@ -99,11 +103,21 @@ header {
     line-height: 1.5rem;
 }
 
-#planet-source {
+#planet-source span {
     font-family: League Spartan;
     font-size: 1rem;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.5);
     line-height: 1.5rem;
+
+}
+
+#planet-source-text {
+    font-family: League Spartan;
+    font-size: 1rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.5rem;
+    text-decoration: underline;
 
 }
 
@@ -114,7 +128,7 @@ header {
     
 }
 
-#planet-buttons button {
+.main-button {
     height: 3rem; /* Set desired height */
     background: none;
     border: 1px solid rgba(255, 255, 255, 0.25);
@@ -130,16 +144,84 @@ header {
     padding: 0.75rem 0 0.688rem 0;
     cursor: pointer;
 }
-
-#planet-buttons button:hover{
+.main-button:hover{
     background-color: #6D2ED5;
     border-color: #6D2ED5;
     transition: ease-in 0.15s;
 }
+
+.button-clicked {
+    background-color: #6D2ED5;
+    border-color: #6D2ED5;
+}
+
 
 .button-number {
     letter-spacing: 0.16rem;
     line-height: 1.5rem;
     padding: 0 1.75rem;
     opacity: 0.5;
+}
+
+.planet-boxes {
+    display: flex;
+    justify-content: space-between;
+    grid-column: 1 / span 2;
+    margin: 5.5rem 0 0 0;
+    
+}
+
+.planet-box {
+    box-sizing: border-box; /* Ensures the element's padding and border are included within its total width and height, preventing unexpected layout sizes. */
+    width: 16rem;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 20px 115px 27px 25px;
+}
+
+.planet-box h3 {
+    font-family: League Spartan;
+    font-size: 0.688rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.5rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: .25rem;
+}
+
+.planet-box-info{
+    font-family: Antonio;
+    font-size: 2.5rem;
+    color: #fff;
+    line-height: 3.25rem;
+    letter-spacing: -1.5px;
+    text-transform: uppercase;
+    display: flex;
+}
+
+.footer-message{
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    padding-top: 1.5rem;
+}
+
+.footer-message p{
+    font-family: League Spartan;
+    font-size: 1rem;
+    color: #fff;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.5rem;
+    
+}
+
+.footer-user{
+    font-family: League Spartan;
+    font-size: 1rem;
+    color: #fff;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.5rem;
+    background-color: #6D2ED5;
+    cursor: pointer;
 }
