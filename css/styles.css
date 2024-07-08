@@ -103,6 +103,10 @@ header {
     line-height: 1.5rem;
 }
 
+#planet-source {
+    display: flex;
+}
+
 #planet-source span {
     font-family: League Spartan;
     font-size: 1rem;
@@ -118,14 +122,17 @@ header {
     color: rgba(255, 255, 255, 0.5);
     line-height: 1.5rem;
     text-decoration: underline;
+    padding: 0 8px;
+}
 
+#source-icon {
+    margin: auto 0;
 }
 
 #planet-buttons {
     display: grid;
     gap: 1rem;
     margin: 2.5rem 0 0 0;
-    
 }
 
 .main-button {
@@ -176,7 +183,7 @@ header {
     width: 16rem;
     color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 20px 115px 27px 25px;
+    padding: 20px 0px 27px 25px;
 }
 
 .planet-box h3 {
@@ -224,4 +231,11 @@ header {
     line-height: 1.5rem;
     background-color: #6D2ED5;
     cursor: pointer;
+    text-decoration: none;
+}
+
+.footer-user:hover{
+    color: #6D2ED5;
+    background-color: #fff;
+    transition: ease-in 0.25s;
 }
