@@ -15,12 +15,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const menu = document.getElementById('header-menu');
 
     let defaultPlanetFlag = 0;
+    let currentPlanet;
 
     fetch('data/data.json')
     .then(response => response.json())
     .then(data => {
+        planetData = data;
         preloadImages(data);
+        const defaultPlanet = planetDefault(data);
+        currentPlanet = defaultPlanet;
         planetSelect(data);
+        mainButtons();
     });
 
     function preloadImages(data) {
@@ -45,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             newMenuItem.addEventListener('click', function() {
                 const formattedSource = formatSourceLink(planet.overview.source);
+                
                 document.querySelectorAll('.menu-item').forEach(item => {
                     item.classList.remove('menu-clicked');
                 })
@@ -55,16 +61,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 imageSection.src = planet.images.planet;
                 nameSectionText.textContent = planet.name;
                 descSectionText.textContent = planet.overview.content;
-                
                 sourceSectionText.textContent = formattedSource;
-                
                 rotationValue.textContent = planet.rotation;
                 revolutionValue.textContent = planet.revolution;
                 radiusValue.textContent = planet.radius;
                 tempValue.textContent = planet.temperature;
-                
-                mainButtons(planet);
                 this.classList.add('menu-clicked');
+                currentPlanet = planet;
+                
             });
             menuList.appendChild(newMenuItem);
         });
@@ -73,40 +77,46 @@ document.addEventListener('DOMContentLoaded', function() {
             if (defaultPlanetMenuItem) {
                 defaultPlanetMenuItem.classList.add('menu-clicked');
             }
-    }
+        }
 
-
-    function mainButtons(planet){
-        if (!planet) return;
-        const formattedSource = formatSourceLink(planet.overview.source);
-        overviewButton.addEventListener('click', function(){
-            buttons.forEach(item => {
-                item.classList.remove('button-clicked');
-            });
-            descSectionText.textContent = planet.overview.content;
-            sourceSectionText.textContent = formattedSource;
-            imageSection.src = planet.images.planet;
-            this.classList.add('button-clicked');
-        });
-        structureButton.addEventListener('click', function(){
-            buttons.forEach(item => {
-                item.classList.remove('button-clicked');
-            });
-
-            descSectionText.textContent = planet.structure.content;
-            sourceSectionText.textContent = formattedSource;
-            imageSection.src = planet.images.internal;
-            this.classList.add('button-clicked');
+    function mainButtons(){
+        overviewButton.addEventListener('click', function() {
+            if (currentPlanet) {
+                const formattedSource = formatSourceLink(currentPlanet.overview.source);
+                buttons.forEach(item => {
+                    item.classList.remove('button-clicked');
+                });
+                descSectionText.textContent = currentPlanet.overview.content;
+                sourceSectionText.textContent = formattedSource;
+                imageSection.src = currentPlanet.images.planet;
+                this.classList.add('button-clicked');
+            }
         });
 
-        geologyButton.addEventListener('click', function(){
-            buttons.forEach(item => {
-                item.classList.remove('button-clicked');
-            });
-            descSectionText.textContent = planet.geology.content;
-            sourceSectionText.textContent = formattedSource;
-            imageSection.src = planet.images.geology;
-            this.classList.add('button-clicked');
+        structureButton.addEventListener('click', function() {
+            if (currentPlanet) {
+                const formattedSource = formatSourceLink(currentPlanet.structure.source);
+                buttons.forEach(item => {
+                    item.classList.remove('button-clicked');
+                });
+                descSectionText.textContent = currentPlanet.structure.content;
+                sourceSectionText.textContent = formattedSource;
+                imageSection.src = currentPlanet.images.internal;
+                this.classList.add('button-clicked');
+            }
+        });
+
+        geologyButton.addEventListener('click', function() {
+            if (currentPlanet) {
+                const formattedSource = formatSourceLink(currentPlanet.geology.source);
+                buttons.forEach(item => {
+                    item.classList.remove('button-clicked');
+                });
+                descSectionText.textContent = currentPlanet.geology.content;
+                sourceSectionText.textContent = formattedSource;
+                imageSection.src = currentPlanet.images.geology;
+                this.classList.add('button-clicked');
+            }
         });
         }
 
@@ -114,10 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function planetDefault(data){
         const specificPlanet =  data.find(item => item.name === "Earth");
-        
-        if (specificPlanet) { // Check if a planet was found
+        if (specificPlanet) {
             const defaultFormattedtSource = formatSourceLink(specificPlanet.overview.source);
-            
             imageSection.src = specificPlanet.images.planet;        
             nameSectionText.textContent = specificPlanet.name;
             descSectionText.textContent = specificPlanet.overview.content;
@@ -129,24 +137,17 @@ document.addEventListener('DOMContentLoaded', function() {
             planet = specificPlanet;
             overviewButton.classList.add('button-clicked');
         }
-
-        const defaultPlanet = data.find(planet => planet.name === "Earth");
-        
-        return defaultPlanet;
+        return specificPlanet;
     }
 
     function formatSourceLink(url) {
         // Use the URL constructor to parse the URL and extract the hostname
         const hostname = new URL(url).hostname;
-        
         // Extract the main word of the domain, assuming it's the part before the last dot
-        // This will work for simple cases and needs adjustment for more complex domain structures
         let mainWord = hostname.substring(0, hostname.lastIndexOf('.'));
-        
         // Remove subdomains, assuming they are separated by dots
         // This gets the last part after the last dot in the remaining string
         mainWord = mainWord.substring(mainWord.lastIndexOf('.') + 1) || mainWord;
-        
         // Capitalize the first letter and return
         return mainWord.charAt(0).toUpperCase() + mainWord.slice(1);
       }
