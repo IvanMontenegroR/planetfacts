@@ -268,11 +268,13 @@ header {
     display: block;
     opacity: 1;
     position: absolute;
-    top: 15%;
+    top: 15.6%;
+    right: 0;
     background-color: rgba(0,0,0,0.5);
     width: 100%; 
     box-shadow: 0 8px 16px rgba(0,0,0,0.2); 
     transition: opacity 0.5s ease;
+    width: 50%;
 }
 
 /* Breakpoints */
