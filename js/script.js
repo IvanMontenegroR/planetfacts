@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const revolutionValue = document.getElementById('revolution-value');
     const radiusValue = document.getElementById('radius-value');
     const tempValue = document.getElementById('temp-value');
+    const menuList = document.getElementById('header-menu-elements');
+    const menu = document.getElementById('header-menu');
 
     let defaultPlanetFlag = 0;
 
@@ -29,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function planetSelect(data){
-        const menuList = document.getElementById('header-menu-elements');
         const defaultPlanet = planetDefault(data);
 
         if(defaultPlanetFlag == 0){
@@ -133,22 +134,37 @@ document.addEventListener('DOMContentLoaded', function() {
         
         return defaultPlanet;
     }
+
+    function formatSourceLink(url) {
+        // Use the URL constructor to parse the URL and extract the hostname
+        const hostname = new URL(url).hostname;
+        
+        // Extract the main word of the domain, assuming it's the part before the last dot
+        // This will work for simple cases and needs adjustment for more complex domain structures
+        let mainWord = hostname.substring(0, hostname.lastIndexOf('.'));
+        
+        // Remove subdomains, assuming they are separated by dots
+        // This gets the last part after the last dot in the remaining string
+        mainWord = mainWord.substring(mainWord.lastIndexOf('.') + 1) || mainWord;
+        
+        // Capitalize the first letter and return
+        return mainWord.charAt(0).toUpperCase() + mainWord.slice(1);
+      }
+
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+
+
+    hamburgerMenu.addEventListener('click', function() {
+        if (menu.classList.contains('menu-hidden')) {
+            menu.classList.remove('menu-hidden');
+            menu.classList.add('menu-shown');
+        } else {
+            menu.classList.remove('menu-shown');
+            menu.classList.add('menu-hidden');
+        }
+    });
 });
 
-function formatSourceLink(url) {
-    // Use the URL constructor to parse the URL and extract the hostname
-    const hostname = new URL(url).hostname;
-    
-    // Extract the main word of the domain, assuming it's the part before the last dot
-    // This will work for simple cases and needs adjustment for more complex domain structures
-    let mainWord = hostname.substring(0, hostname.lastIndexOf('.'));
-    
-    // Remove subdomains, assuming they are separated by dots
-    // This gets the last part after the last dot in the remaining string
-    mainWord = mainWord.substring(mainWord.lastIndexOf('.') + 1) || mainWord;
-    
-    // Capitalize the first letter and return
-    return mainWord.charAt(0).toUpperCase() + mainWord.slice(1);
-  }
+
 
 
