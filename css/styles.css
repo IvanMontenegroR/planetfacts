@@ -176,8 +176,8 @@ header {
     cursor: pointer;
 }
 .main-button:hover{
-    background-color: #6D2ED5;
-    border-color: #6D2ED5;
+    background-color: rgba(216,216,216,0.2);    
+    border-color: rgba(216,216,216,0.2);
     transition: ease-in 0.15s;
 }
 
@@ -441,13 +441,10 @@ header {
     .footer-message{
         margin-top: 20rem;
     }
-
-    
-
 }
 
 /* xl Breakpoint */
-@media (min-width: 1280px){
+@media (min-width: 1280px) and (max-width: 1535px){
     .menu-hidden {
         display: block;
         opacity: 1;
@@ -460,5 +457,36 @@ header {
     .menu-item {
         margin-right: 1rem;
     }
+
+    .planet-container {
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 10rem;
+    }
+
+    .planet-boxes {
+        gap: 2rem
+    }
+
+    .planet-box-info{
+        font-size: 2rem;
+    }
+
+}
+
+/* 2xl Breakpoint */
+@media (min-width: 1536px){
+    .menu-hidden {
+        display: block;
+        opacity: 1;
+    }
+
+    #hamburger-menu{
+        display: none;
+    }
+
+    .menu-item {
+        margin-right: 1rem;
+    }
+
 
 }
