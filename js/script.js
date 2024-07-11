@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const menu = document.getElementById('header-menu');
+    const menuList = document.getElementById('header-menu-elements');
+    const hamburgerMenu = document.getElementById('hamburger-menu');
     const imageSection = document.getElementById('planet-image1');
     const nameSectionText = document.getElementById('planet-name-text');
     const descSectionText = document.getElementById('planet-desc-text');
@@ -11,21 +14,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const revolutionValue = document.getElementById('revolution-value');
     const radiusValue = document.getElementById('radius-value');
     const tempValue = document.getElementById('temp-value');
-    const menuList = document.getElementById('header-menu-elements');
-    const menu = document.getElementById('header-menu');
-
+   
     let defaultPlanetFlag = 0;
     let currentPlanet;
+    let currentPlanetName;
+    let lowerCaseCurrentPlanetName;
 
     fetch('data/data.json')
     .then(response => response.json())
     .then(data => {
-        planetData = data;
         preloadImages(data);
-        const defaultPlanet = planetDefault(data);
-        currentPlanet = defaultPlanet;
+        currentPlanet = planetDefault(data);
         planetSelect(data);
-        mainButtons();
+        mainButtons(currentPlanet);
     });
 
     function preloadImages(data) {
@@ -36,12 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function planetSelect(data){
-        const defaultPlanet = planetDefault(data);
-
-        if(defaultPlanetFlag == 0){
-            mainButtons(defaultPlanet);
-        }
-        
+        lowerCaseCurrentPlanetName = currentPlanet.name.toLowerCase();
         data.forEach(planet => {
             const newMenuItem = document.createElement('li');
             newMenuItem.classList.add('menu-item');
@@ -49,15 +45,17 @@ document.addEventListener('DOMContentLoaded', function() {
             newMenuItem.textContent = planet.name;
 
             newMenuItem.addEventListener('click', function() {
+                const menuItems = document.querySelectorAll('.menu-item');
                 const formattedSource = formatSourceLink(planet.overview.source);
-                
-                document.querySelectorAll('.menu-item').forEach(item => {
-                    item.classList.remove('menu-clicked');
-                })
-                buttons.forEach(item => {
-                    item.classList.remove('button-clicked');
+                currentPlanetName = planet.name;
+                lowerCaseCurrentPlanetName = currentPlanetName.toLowerCase();
+                menuItems.forEach(item => {
+                    removeClickedClass(item);
                 });
-                overviewButton.classList.add('button-clicked');
+                buttons.forEach(item => {
+                    removeClickedClass(item);
+                });
+                overviewButton.classList.add('button-clicked-' + lowerCaseCurrentPlanetName);
                 imageSection.src = planet.images.planet;
                 nameSectionText.textContent = planet.name;
                 descSectionText.textContent = planet.overview.content;
@@ -66,16 +64,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 revolutionValue.textContent = planet.revolution;
                 radiusValue.textContent = planet.radius;
                 tempValue.textContent = planet.temperature;
-                this.classList.add('menu-clicked');
+                this.classList.add('menu-clicked-' + lowerCaseCurrentPlanetName);
                 currentPlanet = planet;
-                
+                defaultPlanetFlag = 1;
             });
             menuList.appendChild(newMenuItem);
         });
             // After all menu items have been created, find and mark the default planet menu item
-            const defaultPlanetMenuItem = Array.from(document.querySelectorAll('.menu-item')).find(item => item.getAttribute('data-planet-name') === defaultPlanet.name);
+            const defaultPlanetMenuItem = Array.from(document.querySelectorAll('.menu-item')).find(item => item.getAttribute('data-planet-name') === currentPlanet.name);
             if (defaultPlanetMenuItem) {
-                defaultPlanetMenuItem.classList.add('menu-clicked');
+                defaultPlanetMenuItem.classList.add('menu-clicked-' + currentPlanet.name.toLowerCase());
             }
         }
 
@@ -84,12 +82,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (currentPlanet) {
                 const formattedSource = formatSourceLink(currentPlanet.overview.source);
                 buttons.forEach(item => {
-                    item.classList.remove('button-clicked');
+                    removeClickedClass(item);
                 });
                 descSectionText.textContent = currentPlanet.overview.content;
                 sourceSectionText.textContent = formattedSource;
                 imageSection.src = currentPlanet.images.planet;
-                this.classList.add('button-clicked');
+                this.classList.add('button-clicked-' + lowerCaseCurrentPlanetName);
             }
         });
 
@@ -97,12 +95,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (currentPlanet) {
                 const formattedSource = formatSourceLink(currentPlanet.structure.source);
                 buttons.forEach(item => {
-                    item.classList.remove('button-clicked');
+                    removeClickedClass(item);
                 });
                 descSectionText.textContent = currentPlanet.structure.content;
                 sourceSectionText.textContent = formattedSource;
                 imageSection.src = currentPlanet.images.internal;
-                this.classList.add('button-clicked');
+                this.classList.add('button-clicked-' + lowerCaseCurrentPlanetName);
             }
         });
 
@@ -110,17 +108,15 @@ document.addEventListener('DOMContentLoaded', function() {
             if (currentPlanet) {
                 const formattedSource = formatSourceLink(currentPlanet.geology.source);
                 buttons.forEach(item => {
-                    item.classList.remove('button-clicked');
+                    removeClickedClass(item);
                 });
                 descSectionText.textContent = currentPlanet.geology.content;
                 sourceSectionText.textContent = formattedSource;
                 imageSection.src = currentPlanet.images.geology;
-                this.classList.add('button-clicked');
+                this.classList.add('button-clicked-' + lowerCaseCurrentPlanetName);
             }
         });
         }
-
-
 
     function planetDefault(data){
         const specificPlanet =  data.find(item => item.name === "Earth");
@@ -135,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
             radiusValue.textContent = specificPlanet.radius;
             tempValue.textContent = specificPlanet.temperature;
             planet = specificPlanet;
-            overviewButton.classList.add('button-clicked');
+            overviewButton.classList.add('button-clicked-earth');
         }
         return specificPlanet;
     }
@@ -152,9 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return mainWord.charAt(0).toUpperCase() + mainWord.slice(1);
       }
 
-    const hamburgerMenu = document.getElementById('hamburger-menu');
-
-
     hamburgerMenu.addEventListener('click', function() {
         if (menu.classList.contains('menu-hidden')) {
             menu.classList.remove('menu-hidden');
@@ -164,6 +157,20 @@ document.addEventListener('DOMContentLoaded', function() {
             menu.classList.add('menu-hidden');
         }
     });
+
+    function removeClickedClass(element){
+        let elementClasses = element.classList;
+        let elementClassesArray = Array.from(elementClasses);
+        for (let i = 0; i < elementClassesArray.length; i++) {
+            if (elementClassesArray[i].startsWith('button-clicked-')) {
+                element.classList.remove(elementClassesArray[i]);
+            }
+            if (elementClassesArray[i].startsWith('menu-clicked-')) {
+                element.classList.remove(elementClassesArray[i]);
+            }
+        }
+    }
+    
 });
 
 
