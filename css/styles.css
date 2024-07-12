@@ -349,42 +349,48 @@ header {
 
 .menu-shown {
     display: block;
-    opacity: 1;
-    position: absolute;
-    top: 15.6%;
-    right: 0;
-    background-color: rgba(0,0,0,0.5);
-    width: 100%; 
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2); 
+    flex-direction: column;
     transition: opacity 0.5s ease;
-    width: 50%;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    max-height: 80vh;
+    overflow-y: scroll;
+
 }
 
 /* Breakpoints */
 
 /* sm Breakpoint */
 @media (max-width: 767px){
+
+    
     .menu-item {
         display: block;
-        padding: .5rem;
-        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+        margin-left: 32px;
     }
 
     ul#header-menu-elements{
         padding-inline-start: 0px;
     }
+
+    #header-menu-elements > li{
+        display: block;
+        font-size: 1rem;
+        line-height: 25px;
+        padding: 1.5rem 0;
+    }
     
     .planet-container {
         display: block;
-        padding: 2.5rem;
+        padding: 0;
     }
 
     #planet-image {
         max-width: 27rem;
-        max-height: auto;
-        overflow: hidden;
-        margin: auto;
         margin: 0 0 2.5rem 0;
+        padding: 4rem 6.5rem 2rem 6.5rem;
      }
      
      #planet-image img {
@@ -392,15 +398,113 @@ header {
          height: auto;
      }
 
+     .planet-info {
+        display: grid;
+     }
+
+     #planet-name{
+        padding: 0 2.5rem;
+     }
+
+     #planet-description{
+        padding: 0 2.5rem;
+     }
+
+     #planet-source{
+        padding: 0 2.5rem;
+     }
+
+     #planet-buttons {
+        grid-row: 1;
+        display: flex;
+        border-top: 1px solid rgba(255, 255, 255, 0.25);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+        justify-content: center;
+        width: 100%;
+        margin: 0 0 2.5rem 0;
+        padding: 1.5rem 0 0 0;
+        gap: 2rem;
+     }
+
+     .main-button {
+        height: 3.125rem;
+        background: transparent;
+        border: none;
+        text-align: center;
+        letter-spacing: 0.2rem;
+        line-height: 1.5rem;
+        padding: 0 0 1rem 0;
+    }
+
+    .main-button:hover {
+        background-color: transparent;
+    }
+
+    .button-clicked-earth, .button-clicked-earth:hover {
+        border-bottom: 4px solid #6D2ED5;  
+    }
+
+    .button-clicked-mercury, .button-clicked-mercury:hover {
+        border-bottom: 4px solid #419EBB; 
+    }
+    
+    .button-clicked-venus, .button-clicked-venus:hover {
+        border-bottom: 4px solid #EDA249; 
+    }
+    
+    .button-clicked-mars, .button-clicked-mars:hover {
+        border-bottom: 4px solid #D14C32; 
+    }
+    
+    .button-clicked-jupiter, .button-clicked-jupiter:hover {
+        border-bottom: 4px solid #D83A34; 
+    }
+    
+    .button-clicked-saturn, .button-clicked-saturn:hover {
+        border-bottom: 4px solid #CD5120; 
+    }
+    
+    .button-clicked-uranus, .button-clicked-uranus:hover {
+        border-bottom: 4px solid #1EC1A2; 
+    }
+    
+    .button-clicked-neptune, .button-clicked-neptune:hover {
+        border-bottom: 4px solid #2D68F0; 
+    }
+
+    .main-button-second-word{
+        display: none;
+    }
+
+     .button-number{
+        display: none;
+     }
+
 
     .planet-boxes {
         display: block;
         margin: 2.5rem 0 0 0;
+        padding: 0 2.5rem 2.5rem 2.5rem;
     }
 
-    .planet-box{
-        margin: 0 0 1rem 0;
+    .planet-box {
+        display: flex;
         width: 100%;
+        padding: 20px 24px;
+        justify-content: space-between;
+        margin: 0 0 1rem 0;
+    }
+    
+    .planet-box h3 {
+        font-size: 0.65rem;
+        line-height: 1rem;
+        margin: 0;
+    }
+    
+    .planet-box-info{
+        font-size: 1.50rem;
+        line-height: 1rem;
+        letter-spacing: -0.75px;
     }
 
     .footer-message{
