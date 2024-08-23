@@ -18,6 +18,6 @@ This project is a static website that provides interesting facts about the plane
 To run this website locally, you don't need any special installation. Simply clone this repository and open the `index.html` file in your browser:
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/IvanMontenegroR/planetfacts
 cd planetfacts
 open index.html
