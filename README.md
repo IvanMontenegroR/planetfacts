@@ -1,6 +1,6 @@
 # Planet Facts Website
 
-This project is a static website that provides interesting facts about the planets in our solar system. It includes various resources such as images, styles, and data files to enhance the user experience.
+This project is a website to that provides interesting facts about the planets in our solar system. The goal with this projects is to demonstrate my skills on HTML, CSS and Javascript, specially working with an API and DOM Manipulation. It includes various resources such as images, styles, and data files to enhance the user experience.
 
 ## Project Structure
 
